@@ -48,6 +48,7 @@
   .section-header p { 
     font-size: 14px; color: #6b6b62; max-width: 400px; margin: 0 auto; line-height: 1.6; 
   }
+  .section-header h2 em { font-style: italic; color: #c8a96e; font-family: 'DM Serif Display', serif; }
 
   /* ── PRICE BOX ── */
   .price-box {
@@ -60,59 +61,8 @@
   .price-market { font-size: 12px; color: rgba(255,255,255,0.5); text-decoration: line-through; }
   .price-save { background: #c8a96e; color: #1a1a18; padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; display: inline-block; }
   .price-note { font-size: 10px; color: rgba(255,255,255,0.4); letter-spacing: 1px; text-transform: uppercase; }
-  .section-header h2 em { font-style: italic; color: #c8a96e; font-family: 'DM Serif Display', serif; }
 
-  /* ── CARDS (Package Details) ── */
-  .card-group { display: flex; flex-direction: column; gap: 16px; }
-  
-  .card {
-    background: #ffffff; border: 1px solid #e8e5de; border-radius: 12px; padding: 24px 20px;
-  }
-  .card.included { border-top: 3px solid #4a7c59; }
-  .card.optional { border-top: 3px solid #c8a96e; }
-
-  .card-title { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; display: block; }
-  .card.included .card-title { color: #4a7c59; }
-  .card.optional .card-title { color: #8a6b2e; }
-
-  h3 { font-size: 13px; font-weight: 600; text-transform: uppercase; margin: 0 0 10px 0; color: #1a1a18; }
-  
-  ul { list-style: none; padding: 0; margin: 0 0 20px 0; }
-  ul:last-child { margin-bottom: 0; }
-  
-  li {
-    font-size: 14px; color: #5a5a52; line-height: 1.5;
-    padding-left: 20px; position: relative; margin-bottom: 8px; font-weight: 400;
-  }
-  li::before { position: absolute; left: 0; top: 0px; font-weight: 700; font-size: 12px; }
-  .card.included li::before { content: '✓'; color: #4a7c59; }
-  .card.optional li::before { content: '+'; color: #c8a96e; }
-
-  .divider { height: 1px; background: #f0ece2; margin: 16px 0; }
-
-  /* ── BONUS SECTION ── */
-  .bonus-box {
-    border: 1px solid #e8e5de; border-radius: 12px; overflow: hidden; background: #fff;
-  }
-  .bonus-header {
-    background: #1a1a18; padding: 16px 20px; color: #f5f0e8;
-  }
-  .bonus-head-title { font-family: 'DM Serif Display', serif; font-size: 18px; margin-bottom: 4px; }
-  .bonus-head-sub { font-size: 12px; opacity: 0.7; }
-  
-  .bonus-item {
-    padding: 16px 20px; border-bottom: 1px solid #f0ece2;
-  }
-  .bonus-item:last-child { border-bottom: none; }
-  .bonus-name { font-size: 13px; font-weight: 600; margin-bottom: 4px; color: #1a1a18; }
-  .bonus-desc { font-size: 12px; color: #6b6b62; line-height: 1.5; }
-  .bonus-val { font-size: 11px; color: #4a7c59; font-weight: 600; margin-top: 6px; }
-
-  /* ── DIFFERENCE SECTION ── */
-  .diff-header { text-align: center; margin-top: 40px; margin-bottom: 10px; }
-  .diff-header h2 { font-family: 'DM Serif Display', serif; font-size: 32px; font-weight: 400; color: #1a1a18; line-height: 1.2; margin-bottom: 10px; }
-  .diff-header h2 em { font-style: italic; color: #c8a96e; }
-  
+  /* ── DIFF CARDS (How section) ── */
   .diff-grid { display: flex; flex-direction: column; gap: 12px; }
   .diff-card {
     background: #ffffff; border: 1px solid #e8e5de; border-radius: 12px; padding: 24px 20px;
@@ -126,69 +76,9 @@
     font-family: 'DM Serif Display', serif; font-size: 36px; color: #f0ece2;
     line-height: 1; margin-bottom: 10px;
   }
-  .diff-card h3 { margin-bottom: 8px; font-size: 14px; }
+  .diff-card h3 { font-size: 13px; font-weight: 600; text-transform: uppercase; margin: 0 0 8px; color: #1a1a18; }
   .diff-card p { font-size: 13px; color: #6b6b62; line-height: 1.6; margin: 0; }
 
-  /* ── FAQ SECTION ── */
-  .faq-header { text-align: center; margin-top: 40px; margin-bottom: 24px; }
-  .faq-header h2 { font-family: 'DM Serif Display', serif; font-size: 32px; font-weight: 400; color: #1a1a18; line-height: 1.2; margin-bottom: 10px; }
-  .faq-header h2 em { font-style: italic; color: #c8a96e; }
-  .faq-header p { font-size: 14px; color: #6b6b62; max-width: 480px; margin: 0 auto; line-height: 1.6; }
-
-  .faq-list { display: flex; flex-direction: column; gap: 10px; }
-
-  .faq-item {
-    background: #ffffff; border: 1px solid #e8e5de;
-    border-radius: 12px; overflow: hidden;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .faq-item.open {
-    border-left: 3px solid #c8a96e;
-    box-shadow: 0 2px 12px rgba(200,169,110,0.10);
-  }
-
-  .faq-q {
-    display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
-    padding: 20px 22px; cursor: pointer;
-    transition: background 0.15s;
-  }
-  .faq-q:hover { background: #faf8f4; }
-  .faq-item.open .faq-q { background: #fdf8f0; }
-
-  .faq-q-text {
-    font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
-    color: #1a1a18; line-height: 1.45; transition: color 0.15s;
-  }
-  .faq-item.open .faq-q-text { color: #8a6b2e; }
-
-  .faq-arrow {
-    color: #c8a96e; font-size: 16px; flex-shrink: 0;
-    margin-top: 2px; transition: transform 0.25s ease; line-height: 1;
-  }
-  .faq-item.open .faq-arrow { transform: rotate(180deg); }
-
-  .faq-a {
-    max-height: 0; overflow: hidden;
-    transition: max-height 0.3s ease, padding 0.3s ease;
-    font-size: 13px; color: #5a5a52; line-height: 1.8;
-    padding: 0 22px;
-  }
-  .faq-item.open .faq-a {
-    max-height: 600px;
-    padding: 14px 22px 20px;
-    border-top: 1px solid #f0ece2;
-  }
-
-  /* ── DESKTOP ADJUSTMENTS ── */
-  @media (min-width: 680px) {
-    .price-box { flex-direction: row; justify-content: center; text-align: left; }
-    .price-sub { align-items: flex-start; }
-    .card-group { display: grid; grid-template-columns: 1fr 1fr; }
-    .diff-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; }
-    .bonus-items-wrap { display: grid; grid-template-columns: 1fr 1fr; }
-    .bonus-item { border-bottom: none; border-right: 1px solid #f0ece2; }
-    .bonus-item:last-child { border-right: none; }
-  }
   /* ── PORTFOLIO ── */
   .port-header { text-align: center; margin-top: 48px; margin-bottom: 24px; }
   .port-header h2 { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: #1a1a18; line-height: 1.25; margin-bottom: 0; }
@@ -276,6 +166,37 @@
   }
   .address-title { font-weight: 600; color: #1a1a18; margin: 0 0 4px; font-size: 13px; }
 
+  /* ── CTA BOX ── */
+  .cta-box {
+    background: #1a1a18; border-radius: 12px; padding: 36px 28px;
+    text-align: center; margin-top: 8px;
+  }
+  .cta-box .chip {
+    background: #c8a96e; color: #1a1a18;
+  }
+  .cta-title {
+    font-family: 'DM Serif Display', serif; font-size: 28px;
+    color: #f5f0e8; font-weight: 400; line-height: 1.25;
+    margin: 0 0 14px;
+  }
+  .cta-title em { font-style: italic; color: #c8a96e; }
+  .cta-body {
+    font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.8;
+    max-width: 420px; margin: 0 auto 28px;
+  }
+  .cta-body strong { color: rgba(255,255,255,0.85); }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #25d366; color: #fff; text-decoration: none;
+    padding: 15px 30px; border-radius: 8px; font-weight: 600; font-size: 15px;
+    transition: opacity 0.15s;
+  }
+  .cta-btn:hover { opacity: 0.9; }
+  .cta-sub {
+    font-size: 11px; color: rgba(255,255,255,0.3);
+    margin-top: 14px; letter-spacing: 0.5px;
+  }
+
   /* ── PAGE TITLE BAR ── */
   .page-title-bar {
     text-align: center;
@@ -290,6 +211,13 @@
     margin: 0;
   }
 
+  /* ── DESKTOP ADJUSTMENTS ── */
+  @media (min-width: 680px) {
+    .price-box { flex-direction: row; justify-content: center; text-align: left; }
+    .price-sub { align-items: flex-start; }
+    .diff-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+  }
+
   /* ── MOBILE RESPONSIVE ── */
   @media (max-width: 480px) {
     body { padding: 0 0 20px; }
@@ -300,30 +228,11 @@
 
     .section-header h2 { font-size: 24px; }
     .price-num { font-size: 38px; }
-
-    /* Stack price box vertically */
     .price-box { padding: 22px 18px; gap: 12px; }
 
-    /* Cards */
-    .card { padding: 18px 14px; }
-    li { font-size: 13px; }
-
-    /* Bonus */
-    .bonus-header { padding: 14px 16px; }
-    .bonus-item { padding: 14px 16px; }
-
-    /* Diff cards */
-    .diff-header h2 { font-size: 24px; }
     .diff-card { padding: 18px 14px; }
     .diff-num { font-size: 28px; }
 
-    /* FAQ */
-    .faq-header h2 { font-size: 24px; }
-    .faq-q { padding: 16px 16px; }
-    .faq-a { padding: 0 16px; }
-    .faq-item.open .faq-a { padding-bottom: 16px; }
-
-    /* Portfolio */
     .port-header h2 { font-size: 22px; }
     .port-top { padding: 16px 14px 10px; }
     .port-name { font-size: 17px; }
@@ -332,10 +241,15 @@
     .breakdown-col { padding: 12px 14px; min-width: 0; }
     .breakdown-val { font-size: 11px; }
 
-    /* Why choose */
     .why-header h2 { font-size: 22px; }
     .why-item { padding: 14px 14px; font-size: 12px; }
     .address-box { padding: 14px 14px; }
+
+    .cta-box { padding: 28px 20px; }
+    .cta-title { font-size: 22px; }
+    .cta-body { font-size: 13px; }
+    .cta-btn { font-size: 14px; padding: 14px 24px; }
+
     .img-lightbox-close { font-size: 40px; top: 8px; right: 10px; }
   }
 
@@ -354,167 +268,43 @@
 
 <div class="container">
 
-  <!-- HEADER -->
+  <!-- HERO -->
   <div class="section-header">
-    <div class="chip">The Package</div>
-    <h2>Everything in the $32,888 <br><em>and what's optional</em></h2>
-    <p>The most common question we get is "does it include X?" <br>Here is the honest answer — before you even speak to us. Transparent pricing. No hidden fees.</p>
+    <div class="chip">Woodates Signature Package</div>
+    <h2>What most Singaporeans pay for a <br><em>4-room BTO renovation</em></h2>
+    <p>Market average: $51,000–$61,800 (projected to increase in 2026)<br>Woodates "Signature" Package: <strong>$32,888 NETT</strong> — fixed price, no hidden charges.</p>
   </div>
 
-  <!-- PRICE -->
+  <!-- PRICE BOX -->
   <div class="price-box">
     <div>
       <div class="price-label">Signature 4-Room Package</div>
       <div class="price-num">$32,888</div>
     </div>
     <div class="price-sub">
-      <div class="price-market"> <a href="https://www.moneysmart.sg/personal-loan/hdb-renovation-cost-loan-guide-singapore-ms" target="_blank" rel="noopener" style="font-size:13px;color:rgba(255,255,255,0.4);text-decoration:line-through;pointer-events:auto;cursor:pointer;">Market average: $51,000–$61,800</a></div>
+      <div class="price-market"><a href="https://www.moneysmart.sg/personal-loan/hdb-renovation-cost-loan-guide-singapore-ms" target="_blank" rel="noopener" style="font-size:13px;color:rgba(255,255,255,0.4);text-decoration:line-through;pointer-events:auto;cursor:pointer;">Market average: $51,000–$61,800</a></div>
       <div class="price-save">You Save ~$20,000</div>
       <div class="price-note">Fixed Price · No Hidden Fees · All-In</div>
     </div>
   </div>
 
-  <!-- CARDS -->
-  <div class="card-group">
-    <div class="card included">
-      <span class="card-title">✓ Included</span>
-      <h3>Signature Custom Carpentry</h3>
-      <p style="font-size:12px; color:#6b6b62; margin-bottom:12px;">Direct from our own factory</p>
-      <ul>
-        <li>Clutter-free designer kitchen — 30ft custom top & bottom cabinets</li>
-        <li>Full-height integrated oven/microwave cabinet</li>
-        <li>Easy-clean sintered stone countertop — 15ft, non-porous, stain-resistant</li>
-        <li>Spacious master wardrobe — 3300mm L-shaped</li>
-        <li>Common bedroom wardrobes × 2 — 1800mm each</li>
-      </ul>
-      <div class="divider"></div>
-      <h3>Complete Home Renovation</h3>
-      <ul>
-        <li>Tiling or LVT Vinyl Flooring — both 100% waterproof, scratch-resistant, and built for daily wear</li>
-        <li>Cement Screeding & Self-Levelling (for vinyl flooring) — creates a smooth, stable base that significantly extends your floor's lifespan</li>
-        <li>Premium Nippon Paint — entire house</li>
-        <li>5 laminated doors for bedrooms & bathrooms</li>
-        <li>2 tempered glass shower screens</li>
-        <li>Service yard sliding window</li>
-        <li>Standard plumbing & electrical work</li>
-        <li>Clean-as-We-Go — site stays tidy throughout, so every visit feels clean and stress-free.</li>
-      </ul>
-    </div>
-
-    <div class="card optional">
-      <span class="card-title">+ Optional Add-Ons (Quoted Separately)</span>
-      <h3>Popular Upgrades & Customisations</h3>
-      <ul>
-        <li>Feature walls — arched, fluted, LED-backlit</li>
-        <li>False ceiling with cove and/or track lighting</li>
-        <li>Kitchen partition — bi-fold glass or fixed panel</li>
-        <li>Custom dividers, consoles, platform living rooms</li>
-        <li>Full kitchen hack & retile</li>
-        <li>Stainless steel or upgraded stone countertops</li>
-        <li>TV console, storage bench, study nook carpentry</li>
-        <li>Additional electrical points beyond standard scope</li>
-      </ul>
-      <div class="divider"></div>
-      <p style="font-size:12px; color:#8a6b2e; line-height:1.6; background:#fdf8f0; padding:12px; border-radius:6px;">
-        <strong>How to use this:</strong> Every completed project below shows the base $32,888 package <em>plus</em> the specific add-ons each client chose — so you can plan your budget when you speak to us.
-      </p>
-    </div>
-  </div>
-
-  <!-- BONUS -->
-  <div class="bonus-box">
-    <div class="bonus-header">
-      <div class="bonus-head-title">🔥 Confirm this month</div>
-      <div class="bonus-head-sub">Get $3,000 worth of free upgrades</div>
-    </div>
-    <div class="bonus-items-wrap">
-      <div class="bonus-item">
-        <div class="bonus-name">1. Your Choice of Signature Freebie</div>
-        <div class="bonus-desc">Free suspended or standing TV console (up to 6 ft) — <em>or</em> 5× rounded corners for any carpentry. Pick whichever suits your home best.</div>
-        <div class="bonus-val">Value: $1,000 (choose one)</div>
-      </div>
-      <div class="bonus-item">
-        <div class="bonus-name">2. 2-Year Extended Warranty</div>
-        <div class="bonus-desc">Extended workmanship warranty for total peace of mind.</div>
-        <div class="bonus-val">Value: $2,000</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- DIFFERENCE -->
-  <div class="diff-header">
-    <div class="chip">The Woodates Difference</div>
-    <h2>We cut out the middlemen, <em>not the quality</em></h2>
-    <p style="font-size:14px; color:#6b6b62; max-width:480px; margin:10px auto 0; line-height:1.6;">Most ID firms design your home, then outsource to contractors you've never met. <br> We design it, build it, and deliver it — ourselves.</p>
-  </div>
-  
+  <!-- HOW WE DO IT -->
   <div class="diff-grid">
     <div class="diff-card">
       <div class="diff-num">01</div>
       <h3>Factory Direct</h3>
-      <p>Every cabinet is hand-finished by our own craftsmen in our JB factory. Visit a completed project before you sign — see and feel the quality in person.</p>
+      <p>We own our carpentry factory in JB. You pay manufacturer prices — not retail markups. Every cabinet is hand-finished by our own craftsmen.</p>
     </div>
     <div class="diff-card">
       <div class="diff-num">02</div>
-      <h3>In-House Trades</h3>
-      <p>We employ our own renovation crew including electricians, plumbers, carpenters and painters. No sub-contractor delays or finger-pointing.</p>
+      <h3>In-House Team</h3>
+      <p>We employ our own designers, PMs, carpenters, painters and electricians. No outsourcing — total quality control and faster timelines.</p>
     </div>
     <div class="diff-card">
       <div class="diff-num">03</div>
-      <h3>Honest Pricing</h3>
-      <p>No last minute surprise cost, no mystery "coordination fees" — just straightforward costs you can see and understand upfront.</p>
+      <h3>True Fixed Price</h3>
+      <p>Our efficiency lets us absorb costs others pass to you. No surprise variation orders, no mystery fees. The price you see is the price you pay.</p>
     </div>
-  </div>
-
-  <!-- FAQ -->
-  <div class="faq-header">
-    <div class="chip">FAQ</div>
-    <h2>Questions we answer <em>on every first call</em></h2>
-    <p>We've answered these many times so we put them here — so you arrive at the zoom already informed.</p>
-  </div>
-
-  <div class="faq-list">
-
-    <div class="faq-item open">
-      <div class="faq-q" onclick="toggle(this)">
-        <span class="faq-q-text">Does the $32,888 include everything, or are there add-ons I'll have to pay for?</span>
-        <span class="faq-arrow">▾</span>
-      </div>
-      <div class="faq-a">The package includes a fully renovated, move-in-ready home: 3D design (up to 3 revisions), personal project manager, basic carpentry (kitchen cabinets, wardrobes), LVT vinyl flooring or tiling, painting, 5 doors, 2 shower screens, service yard window, and standard plumbing and electrical. Customisations like feature walls, false ceilings, kitchen partitions, or additional carpentry are quoted separately and agreed before we start. The package breakdown section above lists everything clearly.</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggle(this)">
-        <span class="faq-q-text">Can I visit a completed project before I sign?</span>
-        <span class="faq-arrow">▾</span>
-      </div>
-      <div class="faq-a">Yes — and we actively encourage it. Seeing a finished home in person is the best way to understand the quality of our carpentry, how accurate our renders are, and what your home will actually feel like to live in. WhatsApp us and we'll arrange a site visit to a recently completed project that matches your preferred style. Clients who visit a site before signing consistently feel most confident about their decision.</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggle(this)">
-        <span class="faq-q-text">When should I contact you relative to my key collection date?</span>
-        <span class="faq-arrow">▾</span>
-      </div>
-      <div class="faq-a">As early as possible. A standard 4-room BTO renovation takes 8–12 weeks. We recommend reaching out as soon as you have a confirmed key collection date — or even before. The earlier we begin design, the better your chances of securing a renovation slot that aligns with your move-in target.</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggle(this)">
-        <span class="faq-q-text">How does payment work — do I need to pay a lot upfront?</span>
-        <span class="faq-arrow">▾</span>
-      </div>
-      <div class="faq-a">Payment is split into 5 milestones tied to completed work stages: 15% at signing, 35% upon commencement of work, 20% upon completion of tiling or flooring works, 25% upon delivery of carpentry work, 5% upon completion of work. You never pay for the next stage until the current one is verified.</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggle(this)">
-        <span class="faq-q-text">Do you do 3-room, 5-room, resale, and condo as well?</span>
-        <span class="faq-arrow">▾</span>
-      </div>
-      <div class="faq-a">Our Signature Package is designed for 4-room BTOs. We also take on 3-room BTO, 5-room BTO, resale HDB, and condo projects — these are quoted individually based on the scope. WhatsApp us with your property type, floor plan and key collection date and we'll work on the quote for you.</div>
-    </div>
-
   </div>
 
   <!-- PORTFOLIO -->
@@ -660,6 +450,22 @@
     <p style="margin-top:6px; color:#8a8078;">Singapore: By appointment only — WhatsApp us to arrange</p>
   </div>
 
+  <!-- YOUR HOME YOUR WAY CTA -->
+  <div class="cta-box">
+    <div class="chip">Your Home, Your Way</div>
+    <h2 class="cta-title">Every 4-room BTO is <em>different</em></h2>
+    <p class="cta-body">
+      Don't need all 3 wardrobes? Want a kitchen island instead of a standard counter?
+      <strong>We'll swap the value of any item toward what actually fits your home</strong> — no value lost, no extra charges.<br><br>
+      In a free 20-min Zoom with our senior designer, we'll map your exact floorplan, walk you through a 2D layout plan, and give you a line-by-line quotation — before you commit to anything.
+    </p>
+    <a class="cta-btn" href="https://wa.me/message/BKNNSDC54PN6L1" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp Us to Book Your Free Zoom
+    </a>
+    <p class="cta-sub">Free · No obligation · 20 minutes</p>
+  </div>
+
 </div>
 
 <div class="img-lightbox" id="img-lightbox" role="dialog" aria-modal="true" aria-label="Expanded portfolio image">
@@ -668,13 +474,6 @@
 </div>
 
 <script>
-  function toggle(questionEl) {
-    var item = questionEl.closest('.faq-item');
-    var isOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item').forEach(function(el) { el.classList.remove('open'); });
-    if (!isOpen) item.classList.add('open');
-  }
-
   (function initPortfolioLightbox() {
     var lightbox = document.getElementById('img-lightbox');
     var lightboxImage = document.getElementById('img-lightbox-image');
