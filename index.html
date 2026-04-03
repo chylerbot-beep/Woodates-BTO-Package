@@ -166,6 +166,56 @@
   }
   .address-title { font-weight: 600; color: #1a1a18; margin: 0 0 4px; font-size: 13px; }
 
+  /* ── FAQ SECTION ── */
+  .faq-header { text-align: center; margin-top: 40px; margin-bottom: 24px; }
+  .faq-header h2 { font-family: 'DM Serif Display', serif; font-size: 32px; font-weight: 400; color: #1a1a18; line-height: 1.2; margin-bottom: 10px; }
+  .faq-header h2 em { font-style: italic; color: #c8a96e; }
+  .faq-header p { font-size: 14px; color: #6b6b62; max-width: 480px; margin: 0 auto; line-height: 1.6; }
+
+  .faq-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .faq-item {
+    background: #ffffff; border: 1px solid #e8e5de;
+    border-radius: 12px; overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .faq-item.open {
+    border-left: 3px solid #c8a96e;
+    box-shadow: 0 2px 12px rgba(200,169,110,0.10);
+  }
+
+  .faq-q {
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
+    padding: 20px 22px; cursor: pointer;
+    transition: background 0.15s;
+  }
+  .faq-q:hover { background: #faf8f4; }
+  .faq-item.open .faq-q { background: #fdf8f0; }
+
+  .faq-q-text {
+    font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
+    color: #1a1a18; line-height: 1.45; transition: color 0.15s;
+  }
+  .faq-item.open .faq-q-text { color: #8a6b2e; }
+
+  .faq-arrow {
+    color: #c8a96e; font-size: 16px; flex-shrink: 0;
+    margin-top: 2px; transition: transform 0.25s ease; line-height: 1;
+  }
+  .faq-item.open .faq-arrow { transform: rotate(180deg); }
+
+  .faq-a {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    font-size: 13px; color: #5a5a52; line-height: 1.8;
+    padding: 0 22px;
+  }
+  .faq-item.open .faq-a {
+    max-height: 600px;
+    padding: 14px 22px 20px;
+    border-top: 1px solid #f0ece2;
+  }
+
   /* ── CTA BOX ── */
   .cta-box {
     background: #1a1a18; border-radius: 12px; padding: 36px 28px;
@@ -227,6 +277,11 @@
     .why-header h2 { font-size: 22px; }
     .why-item { padding: 14px 14px; font-size: 12px; }
     .address-box { padding: 14px 14px; }
+
+    .faq-header h2 { font-size: 24px; }
+    .faq-q { padding: 16px 16px; }
+    .faq-a { padding: 0 16px; }
+    .faq-item.open .faq-a { padding-bottom: 16px; }
 
     .cta-box { padding: 28px 20px; }
     .cta-title { font-size: 22px; }
@@ -423,6 +478,57 @@
     <div class="why-item"><span class="why-icon">👥</span><div><strong>Fully In-House</strong> — designers, PMs, carpenters, painters, electricians</div></div>
   </div>
 
+  <!-- FAQ -->
+  <div class="faq-header">
+    <div class="chip">FAQ</div>
+    <h2>Questions we answer <em>on every first call</em></h2>
+    <p>We've answered these many times so we put them here — so you arrive at the zoom already informed.</p>
+  </div>
+
+  <div class="faq-list">
+
+    <div class="faq-item open">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Does the $32,888 include everything, or are there add-ons I'll have to pay for?</span>
+        <span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a">The package includes a fully renovated, move-in-ready home: 3D design (up to 3 revisions), personal project manager, basic carpentry (kitchen cabinets, wardrobes), LVT vinyl flooring or tiling, painting, 5 doors, 2 shower screens, service yard window, and standard plumbing and electrical. Customisations like feature walls, false ceilings, kitchen partitions, or additional carpentry are quoted separately and agreed before we start. The package breakdown section above lists everything clearly.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Can I visit a completed project before I sign?</span>
+        <span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a">Yes — and we actively encourage it. Seeing a finished home in person is the best way to understand the quality of our carpentry, how accurate our renders are, and what your home will actually feel like to live in. WhatsApp us and we'll arrange a site visit to a recently completed project that matches your preferred style. Clients who visit a site before signing consistently feel most confident about their decision.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">When should I contact you relative to my key collection date?</span>
+        <span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a">As early as possible. A standard 4-room BTO renovation takes 8–12 weeks. We recommend reaching out as soon as you have a confirmed key collection date — or even before. The earlier we begin design, the better your chances of securing a renovation slot that aligns with your move-in target.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">How does payment work — do I need to pay a lot upfront?</span>
+        <span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a">Payment is split into 5 milestones tied to completed work stages: 15% at signing, 35% upon commencement of work, 20% upon completion of tiling or flooring works, 25% upon delivery of carpentry work, 5% upon completion of work. You never pay for the next stage until the current one is verified.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Do you do 3-room, 5-room, resale, and condo as well?</span>
+        <span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a">Our Signature Package is designed for 4-room BTOs. We also take on 3-room BTO, 5-room BTO, resale HDB, and condo projects — these are quoted individually based on the scope. WhatsApp us with your property type, floor plan and key collection date and we'll work on the quote for you.</div>
+    </div>
+
+  </div>
+
   <!-- YOUR HOME YOUR WAY CTA -->
   <div class="cta-box">
     <div class="chip">Your Home, Your Way</div>
@@ -453,6 +559,13 @@
 </div>
 
 <script>
+  function toggle(questionEl) {
+    var item = questionEl.closest('.faq-item');
+    var isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(el) { el.classList.remove('open'); });
+    if (!isOpen) item.classList.add('open');
+  }
+
   (function initPortfolioLightbox() {
     var lightbox = document.getElementById('img-lightbox');
     var lightboxImage = document.getElementById('img-lightbox-image');
