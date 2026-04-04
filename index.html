@@ -215,6 +215,21 @@
     padding: 14px 22px 20px;
     border-top: 1px solid #f0ece2;
   }
+  .faq-a ul {
+    margin: 0 0 12px; padding-left: 0; list-style: none;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .faq-a ul li {
+    display: flex; align-items: flex-start; gap: 8px;
+    font-size: 13px; color: #5a5a52; line-height: 1.5;
+  }
+  .faq-a ul li::before {
+    content: '✦'; color: #c8a96e; font-size: 7px; margin-top: 5px; flex-shrink: 0;
+  }
+  .faq-a .faq-note {
+    font-size: 12px; color: #8a8078; line-height: 1.6;
+    border-top: 1px solid #f0ece2; padding-top: 10px; margin-top: 4px;
+  }
 
   /* ── CTA BOX ── */
   .cta-box {
@@ -537,7 +552,20 @@
         <span class="faq-q-text">Does the $32,888 include everything, or are there add-ons I'll have to pay for?</span>
         <span class="faq-arrow">▾</span>
       </div>
-      <div class="faq-a">The package includes a fully renovated, move-in-ready home with plenty of storage and easy-to-clean surfaces: 3D design (up to 3 revisions), personal project manager, fully customizable carpentry (top and bottom kitchen cabinets, full height wardrobes for every bedroom), sintered stone countertop, LVT vinyl flooring or tiling, cement screeding, painting, doors for bedrooms and toilets, and standard plumbing and electrical works. Customisations like feature walls, false ceilings, kitchen partitions, or additional carpentry are quoted separately and agreed before we start.</div>
+      <div class="faq-a">
+        <ul>
+          <li>3D design (up to 3 revisions)</li>
+          <li>Personal project manager</li>
+          <li>Fully customisable carpentry (top and bottom kitchen cabinets, full height wardrobes for every bedroom)</li>
+          <li>Sintered stone countertop</li>
+          <li>LVT vinyl flooring or tiling</li>
+          <li>Cement screeding</li>
+          <li>Painting</li>
+          <li>Doors for bedrooms and toilets</li>
+          <li>Standard plumbing and electrical works</li>
+        </ul>
+        <p class="faq-note">Customisations like feature walls, false ceilings, kitchen partitions, or additional carpentry are quoted separately and agreed before we start.</p>
+      </div>
     </div>
 
     <div class="faq-item">
