@@ -84,10 +84,40 @@
   .port-header h2 { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: #1a1a18; line-height: 1.25; margin-bottom: 0; }
   .port-header h2 em { font-style: italic; color: #c8a96e; }
 
-  .port-list { display: flex; flex-direction: column; gap: 20px; }
+  /* ── PORTFOLIO SCROLL ── */
+  .port-scroll-wrap {
+    margin: 0 -12px; /* bleed past container padding */
+    padding: 0 12px 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .port-scroll-wrap::-webkit-scrollbar { display: none; }
+
+  .port-list {
+    display: flex; flex-direction: row;
+    gap: 16px;
+    width: max-content;
+  }
 
   .port-card {
     background: #fff; border: 1px solid #e8e5de; border-radius: 12px; overflow: hidden;
+    width: 300px; flex-shrink: 0;
+    display: flex; flex-direction: column;
+  }
+
+  /* scroll hint dots */
+  .port-dots {
+    display: flex; justify-content: center; gap: 6px; margin-top: 4px;
+  }
+  .port-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #e8e5de; transition: background 0.2s;
+  }
+  .port-dot.active { background: #c8a96e; }
+
+  @media (min-width: 680px) {
+    .port-card { width: 360px; }
   }
   .port-top {
     display: flex; justify-content: space-between; align-items: flex-start;
@@ -389,6 +419,7 @@
     <h2>See the base package <em>plus what each client added</em></h2>
   </div>
 
+  <div class="port-scroll-wrap" id="portScroll">
   <div class="port-list">
 
     <div class="port-card">
@@ -502,9 +533,15 @@
       </div>
     </div>
 
-  </div>
+  </div><!-- end port-list -->
+  </div><!-- end port-scroll-wrap -->
 
-  <!-- WHY CHOOSE WOODATES -->
+  <div class="port-dots" id="portDots">
+    <div class="port-dot active"></div>
+    <div class="port-dot"></div>
+    <div class="port-dot"></div>
+    <div class="port-dot"></div>
+  </div>
   <div class="why-header">
     <div class="chip">Why Choose Woodates</div>
   </div>
@@ -647,6 +684,18 @@
     document.addEventListener('keydown', function(event) {
       if (event.key === 'Escape') closeLightbox();
     });
+  })();
+
+  // Portfolio scroll dots
+  (function initPortDots() {
+    var wrap = document.getElementById('portScroll');
+    var dots = document.querySelectorAll('#portDots .port-dot');
+    if (!wrap || !dots.length) return;
+    var cards = wrap.querySelectorAll('.port-card');
+    wrap.addEventListener('scroll', function() {
+      var idx = Math.round(wrap.scrollLeft / (cards[0].offsetWidth + 16));
+      dots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
+    }, { passive: true });
   })();
 </script>
 </body>
