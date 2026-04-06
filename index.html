@@ -84,6 +84,13 @@
   .port-header h2 { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: #1a1a18; line-height: 1.25; margin-bottom: 0; }
   .port-header h2 em { font-style: italic; color: #c8a96e; }
 
+  .port-carousel {
+    position: relative;
+  }
+  .port-arrow {
+    display: none;
+  }
+
   /* ── PORTFOLIO SCROLL ── */
   .port-scroll-wrap {
     margin: 0 -12px; /* bleed past container padding */
@@ -323,9 +330,52 @@
 
   /* ── DESKTOP ADJUSTMENTS ── */
   @media (min-width: 680px) {
+    .price-box,
+    .cta-box {
+      width: min(100%, 640px);
+      margin-left: auto;
+      margin-right: auto;
+    }
     .price-box { flex-direction: row; justify-content: center; text-align: left; }
     .price-sub { align-items: flex-start; }
     .diff-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+
+    .port-carousel {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .port-scroll-wrap {
+      margin: 0;
+      padding: 0 0 16px;
+      flex: 1;
+    }
+    .port-arrow {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid #d9d2c3;
+      background: #fff;
+      color: #8a6b2e;
+      font-size: 24px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      flex-shrink: 0;
+    }
+    .port-arrow:hover { background: #f8f4ec; border-color: #c8a96e; }
+    .port-arrow:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      background: #f7f4ee;
+      border-color: #e8e5de;
+      color: #b8b0a2;
+    }
   }
 
   /* ── MOBILE RESPONSIVE ── */
@@ -419,7 +469,9 @@
     <h2>See the base package <em>plus what each client added</em></h2>
   </div>
 
-  <div class="port-scroll-wrap" id="portScroll">
+  <div class="port-carousel">
+    <button class="port-arrow port-arrow-prev" id="portPrev" aria-label="View previous projects">‹</button>
+    <div class="port-scroll-wrap" id="portScroll">
   <div class="port-list">
 
     <div class="port-card">
@@ -535,6 +587,8 @@
 
   </div><!-- end port-list -->
   </div><!-- end port-scroll-wrap -->
+    <button class="port-arrow port-arrow-next" id="portNext" aria-label="View next projects">›</button>
+  </div><!-- end port-carousel -->
 
   <div class="port-dots" id="portDots">
     <div class="port-dot active"></div>
@@ -685,16 +739,56 @@
     });
   })();
 
-  // Portfolio scroll dots
-  (function initPortDots() {
+  // Portfolio scroll dots + desktop arrows
+  (function initPortCarousel() {
     var wrap = document.getElementById('portScroll');
     var dots = document.querySelectorAll('#portDots .port-dot');
-    if (!wrap || !dots.length) return;
+    var prev = document.getElementById('portPrev');
+    var next = document.getElementById('portNext');
+    if (!wrap) return;
+
     var cards = wrap.querySelectorAll('.port-card');
-    wrap.addEventListener('scroll', function() {
-      var idx = Math.round(wrap.scrollLeft / (cards[0].offsetWidth + 16));
-      dots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
-    }, { passive: true });
+    if (!cards.length) return;
+
+    function cardStep() {
+      return cards[0].offsetWidth + 16;
+    }
+
+    function maxIndex() {
+      return Math.max(0, cards.length - 1);
+    }
+
+    function activeIndex() {
+      return Math.max(0, Math.min(maxIndex(), Math.round(wrap.scrollLeft / cardStep())));
+    }
+
+    function updateUI() {
+      var idx = activeIndex();
+      dots.forEach(function(dot, i) {
+        dot.classList.toggle('active', i === idx);
+      });
+      if (prev && next) {
+        prev.disabled = idx <= 0;
+        next.disabled = idx >= maxIndex();
+      }
+    }
+
+    function scrollToIndex(idx) {
+      wrap.scrollTo({ left: idx * cardStep(), behavior: 'smooth' });
+    }
+
+    if (prev && next) {
+      prev.addEventListener('click', function() {
+        scrollToIndex(activeIndex() - 1);
+      });
+      next.addEventListener('click', function() {
+        scrollToIndex(activeIndex() + 1);
+      });
+    }
+
+    wrap.addEventListener('scroll', updateUI, { passive: true });
+    window.addEventListener('resize', updateUI);
+    updateUI();
   })();
 </script>
 </body>
