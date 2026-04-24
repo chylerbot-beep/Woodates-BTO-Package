@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Woodates Static Package</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ── RESET ── */
+  html {
+    margin: 0; padding: 0; width: 100%; height: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  body {
+    margin: 0; padding: 0 10px 40px; width: 100%; min-height: 100%;
+    font-family: 'DM Sans', sans-serif;
+    background: transparent;
+    color: #1a1a18;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    touch-action: pan-y;
+  }
+  
+  *, *::before, *::after { box-sizing: inherit; }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  /* ── PRICE HEADER ── */
+  .section-header { text-align: center; margin-bottom: 20px; }
+  .chip {
+    display: inline-block; background: #1a1a18; color: #f5f0e8;
+    border-radius: 4px; padding: 5px 14px; font-size: 10px; font-weight: 600;
+    letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 16px;
+  }
+  .section-header h2 {
+    font-family: 'DM Serif Display', serif; font-size: 32px;
+    font-weight: 400; color: #1a1a18; line-height: 1.2; margin-bottom: 10px;
+  }
+  .section-header p { 
+    font-size: 14px; color: #6b6b62; max-width: 400px; margin: 0 auto; line-height: 1.6; 
+  }
+  .section-header h2 em { font-style: italic; color: #c8a96e; font-family: 'DM Serif Display', serif; }
+
+  /* ── PRICE BOX ── */
+  .price-box {
+    background: #1a1a18; border-radius: 12px; padding: 28px 24px;
+    display: flex; flex-direction: column; gap: 16px; align-items: center; text-align: center;
+  }
+  .price-label { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #c8a96e; }
+  .price-num { font-family: 'DM Serif Display', serif; font-size: 48px; color: #f5f0e8; line-height: 1; margin: 6px 0; }
+  .price-sub { display: flex; flex-direction: column; gap: 6px; }
+  .price-market { font-size: 12px; color: rgba(255,255,255,0.5); text-decoration: line-through; }
+  .price-save { background: #c8a96e; color: #1a1a18; padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; display: inline-block; }
+  .price-note { font-size: 10px; color: rgba(255,255,255,0.4); letter-spacing: 1px; text-transform: uppercase; }
+
+  /* ── DIFF CARDS (How section) ── */
+  .diff-grid { display: flex; flex-direction: column; gap: 12px; }
+  .diff-card {
+    background: #ffffff; border: 1px solid #e8e5de; border-radius: 12px; padding: 24px 20px;
+    position: relative; overflow: hidden;
+  }
+  .diff-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, #c8a96e, #e8cc9a);
+  }
+  .diff-num {
+    font-family: 'DM Serif Display', serif; font-size: 36px; color: #f0ece2;
+    line-height: 1; margin-bottom: 10px;
+  }
+  .diff-card h3 { font-size: 13px; font-weight: 600; text-transform: uppercase; margin: 0 0 8px; color: #1a1a18; }
+  .diff-card p { font-size: 13px; color: #6b6b62; line-height: 1.6; margin: 0; }
+
+  /* ── PORTFOLIO ── */
+  .port-header { text-align: center; margin-top: 48px; margin-bottom: 24px; }
+  .port-header h2 { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: #1a1a18; line-height: 1.25; margin-bottom: 0; }
+  .port-header h2 em { font-style: italic; color: #c8a96e; }
+
+  .port-carousel {
+    position: relative;
+  }
+  .port-arrow {
+    display: none;
+  }
+
+  /* ── PORTFOLIO SCROLL ── */
+  .port-scroll-wrap {
+    margin: 0 -12px; /* bleed past container padding */
+    padding: 0 12px 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .port-scroll-wrap::-webkit-scrollbar { display: none; }
+
+  .port-list {
+    display: flex; flex-direction: row;
+    gap: 16px;
+    width: max-content;
+  }
+
+  .port-card {
+    background: #fff; border: 1px solid #e8e5de; border-radius: 12px; overflow: hidden;
+    width: 300px; flex-shrink: 0;
+    display: flex; flex-direction: column;
+  }
+
+  /* scroll hint dots */
+  .port-dots {
+    display: flex; justify-content: center; gap: 6px; margin-top: 4px;
+  }
+  .port-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #e8e5de; transition: background 0.2s;
+  }
+  .port-dot.active { background: #c8a96e; }
+
+  @media (min-width: 680px) {
+    .port-card { width: 360px; }
+  }
+  .port-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 20px 20px 14px; gap: 12px;
+  }
+  .port-location { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: #9a9488; margin: 0 0 4px; }
+  .port-name { font-family: 'DM Serif Display', serif; font-size: 20px; color: #1a1a18; margin: 0; }
+  .port-price-box { text-align: right; flex-shrink: 0; }
+  .port-price-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px; color: #9a9488; margin: 0 0 2px; }
+  .port-price { font-family: 'DM Serif Display', serif; font-size: 22px; color: #c8a96e; margin: 0; }
+
+  .port-pills { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 20px 14px; }
+  .port-pill {
+    background: #f5f2eb; border: 1px solid #e8e5de;
+    font-size: 11px; color: #6b6b62; padding: 4px 10px; border-radius: 20px;
+  }
+
+  .port-imgs { display: grid; gap: 3px; }
+  .port-imgs.layout-2 { grid-template-columns: 1fr 1fr; }
+  .port-imgs.layout-2 img { width: 100%; height: 210px; object-fit: cover; display: block; }
+  .port-imgs.layout-4 { grid-template-columns: 1fr 1fr; }
+  .port-imgs.layout-4 img { width: 100%; height: 180px; object-fit: cover; display: block; }
+  .port-imgs img { cursor: zoom-in; }
+
+  .img-lightbox {
+    position: fixed; inset: 0; z-index: 9999;
+    display: none; align-items: center; justify-content: center;
+    background: rgba(0, 0, 0, 0.86);
+    padding: 20px;
+  }
+  .img-lightbox.open { display: flex; }
+  .img-lightbox img {
+    max-width: min(96vw, 1200px);
+    max-height: 90vh;
+    width: auto; height: auto;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.45);
+  }
+  .img-lightbox-close {
+    position: absolute; top: 14px; right: 16px;
+    border: 0; background: transparent; color: #fff;
+    font-size: 32px; line-height: 1; cursor: pointer;
+  }
+
+  .port-breakdown {
+    display: flex; flex-wrap: wrap; gap: 0;
+    border-top: 1px solid #f0ece2; background: #faf8f4;
+  }
+  .breakdown-col {
+    flex: 1; min-width: 160px;
+    padding: 14px 20px; border-right: 1px solid #f0ece2;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .breakdown-col:last-child { border-right: none; }
+  .breakdown-label { font-size: 9px; text-transform: uppercase; letter-spacing: 1.5px; color: #9a9488; }
+  .breakdown-val { font-size: 12px; color: #3a3a32; font-weight: 500; line-height: 1.5; }
+
+  /* ── WHY CHOOSE ── */
+  .why-header { text-align: center; margin-top: 48px; margin-bottom: 18px; }
+  .why-header h2 { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; color: #1a1a18; line-height: 1.25; }
+  .why-header h2 em { font-style: italic; color: #c8a96e; }
+
+  .why-grid { display: flex; flex-direction: column; gap: 10px; }
+  .why-item {
+    background: #fff; border: 1px solid #e8e5de; border-radius: 10px;
+    padding: 16px 18px; display: flex; align-items: flex-start; gap: 12px;
+    font-size: 13px; color: #5a5a52; line-height: 1.5;
+  }
+  .why-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .why-item strong { color: #1a1a18; }
+
+  .address-box {
+    background: #f5f2eb; border: 1px solid #e8e5de; border-radius: 10px;
+    padding: 18px 20px; margin-top: 10px;
+    font-size: 12px; color: #6b6b62; line-height: 1.6;
+  }
+  .address-title { font-weight: 600; color: #1a1a18; margin: 0 0 4px; font-size: 13px; }
+
+  /* ── FAQ SECTION ── */
+  .faq-header { text-align: center; margin-top: 40px; margin-bottom: 24px; }
+  .faq-header h2 { font-family: 'DM Serif Display', serif; font-size: 32px; font-weight: 400; color: #1a1a18; line-height: 1.2; margin-bottom: 10px; }
+  .faq-header h2 em { font-style: italic; color: #c8a96e; }
+  .faq-header p { font-size: 14px; color: #6b6b62; max-width: 480px; margin: 0 auto; line-height: 1.6; }
+
+  .faq-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .faq-item {
+    background: #ffffff; border: 1px solid #e8e5de;
+    border-radius: 12px; overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .faq-item.open {
+    border-left: 3px solid #c8a96e;
+    box-shadow: 0 2px 12px rgba(200,169,110,0.10);
+  }
+
+  .faq-q {
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
+    padding: 20px 22px; cursor: pointer;
+    transition: background 0.15s;
+  }
+  .faq-q:hover { background: #faf8f4; }
+  .faq-item.open .faq-q { background: #fdf8f0; }
+
+  .faq-q-text {
+    font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
+    color: #1a1a18; line-height: 1.45; transition: color 0.15s;
+  }
+  .faq-item.open .faq-q-text { color: #8a6b2e; }
+
+  .faq-arrow {
+    color: #c8a96e; font-size: 16px; flex-shrink: 0;
+    margin-top: 2px; transition: transform 0.25s ease; line-height: 1;
+  }
+  .faq-item.open .faq-arrow { transform: rotate(180deg); }
+
+  .faq-a {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    font-size: 13px; color: #5a5a52; line-height: 1.8;
+    padding: 0 22px;
+  }
+  .faq-item.open .faq-a {
+    max-height: 600px;
+    padding: 14px 22px 20px;
+    border-top: 1px solid #f0ece2;
+  }
+  .faq-a ul {
+    margin: 0 0 12px; padding-left: 0; list-style: none;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .faq-a ul li {
+    display: flex; align-items: flex-start; gap: 8px;
+    font-size: 13px; color: #5a5a52; line-height: 1.5;
+  }
+  .faq-a ul li::before {
+    content: '✦'; color: #c8a96e; font-size: 7px; margin-top: 5px; flex-shrink: 0;
+  }
+  .faq-a .faq-note {
+    font-size: 12px; color: #8a8078; line-height: 1.6;
+    border-top: 1px solid #f0ece2; padding-top: 10px; margin-top: 4px;
+  }
+
+  /* ── CTA BOX ── */
+  .cta-box {
+    background: #1a1a18; border-radius: 12px; padding: 36px 28px;
+    text-align: center; margin-top: 8px;
+  }
+  .cta-box .chip {
+    background: #c8a96e; color: #1a1a18;
+  }
+  .cta-title {
+    font-family: 'DM Serif Display', serif; font-size: 28px;
+    color: #f5f0e8; font-weight: 400; line-height: 1.25;
+    margin: 0 0 14px;
+  }
+  .cta-title em { font-style: italic; color: #c8a96e; }
+  .cta-body {
+    font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.8;
+    max-width: 420px; margin: 0 auto 28px;
+  }
+  .cta-body strong { color: rgba(255,255,255,0.85); }
+  .freebie-list {
+    display: flex; flex-direction: column;
+    margin: 0 auto 28px; max-width: 360px;
+    border: 1.5px dashed rgba(200,169,110,0.5);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .freebie-list-header {
+    background: rgba(200,169,110,0.15);
+    border-bottom: 1.5px dashed rgba(200,169,110,0.5);
+    padding: 8px 16px;
+    font-size: 9px; font-weight: 700; letter-spacing: 2.5px;
+    text-transform: uppercase; color: #c8a96e; text-align: center;
+  }
+  .freebie-list-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 16px;
+    border-bottom: 1px dashed rgba(255,255,255,0.08);
+    font-size: 13px; font-weight: 600;
+    color: rgba(255,255,255,0.8); text-align: left; line-height: 1.3;
+  }
+  .freebie-list-item:last-child { border-bottom: none; }
+  .freebie-num {
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 1px solid rgba(200,169,110,0.6);
+    color: #c8a96e; font-size: 10px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #25d366; color: #fff; text-decoration: none;
+    padding: 15px 30px; border-radius: 8px; font-weight: 600; font-size: 15px;
+    transition: opacity 0.15s;
+  }
+  .cta-btn:hover { opacity: 0.9; }
+  .cta-sub {
+    font-size: 11px; color: rgba(255,255,255,0.3);
+    margin-top: 14px; letter-spacing: 0.5px;
+  }
+
+  /* ── DESKTOP ADJUSTMENTS ── */
+  @media (min-width: 680px) {
+    .price-box,
+    .cta-box {
+      width: min(100%, 640px);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .price-box { flex-direction: row; justify-content: center; text-align: left; }
+    .price-sub { align-items: flex-start; }
+    .diff-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+
+    .port-carousel {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .port-scroll-wrap {
+      margin: 0;
+      padding: 0 0 16px;
+      flex: 1;
+    }
+    .port-arrow {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid #d9d2c3;
+      background: #fff;
+      color: #8a6b2e;
+      font-size: 24px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      flex-shrink: 0;
+    }
+    .port-arrow:hover { background: #f8f4ec; border-color: #c8a96e; }
+    .port-arrow:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      background: #f7f4ee;
+      border-color: #e8e5de;
+      color: #b8b0a2;
+    }
+  }
+
+  /* ── MOBILE RESPONSIVE ── */
+  @media (max-width: 480px) {
+    body { padding: 0 0 20px; }
+    .container { gap: 16px; padding: 0 12px; }
+
+    .section-header h2 { font-size: 24px; }
+    .price-num { font-size: 38px; }
+    .price-box { padding: 22px 18px; gap: 12px; }
+
+    .diff-card { padding: 18px 14px; }
+    .diff-num { font-size: 28px; }
+
+    .port-header h2 { font-size: 22px; }
+    .port-top { padding: 16px 14px 10px; }
+    .port-name { font-size: 17px; }
+    .port-pills { padding: 0 14px 10px; }
+    .port-imgs.layout-4 img { height: 130px; }
+    .breakdown-col { padding: 12px 14px; min-width: 0; }
+    .breakdown-val { font-size: 11px; }
+
+    .why-header h2 { font-size: 22px; }
+    .why-item { padding: 14px 14px; font-size: 12px; }
+    .address-box { padding: 14px 14px; }
+
+    .faq-header h2 { font-size: 24px; }
+    .faq-q { padding: 16px 16px; }
+    .faq-a { padding: 0 16px; }
+    .faq-item.open .faq-a { padding-bottom: 16px; }
+
+    .cta-box { padding: 28px 20px; }
+    .cta-title { font-size: 22px; }
+    .cta-body { font-size: 13px; }
+    .cta-btn { font-size: 14px; padding: 14px 24px; }
+
+    .img-lightbox-close { font-size: 40px; top: 8px; right: 10px; }
+  }
+
+  @media (max-width: 360px) {
+    .port-imgs.layout-4 { grid-template-columns: 1fr; }
+    .port-imgs.layout-4 img { height: 200px; }
+  }
+
+</style>
+</head>
+<body>
+
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="section-header">
+    <h2>What most Singaporeans pay for a <em>5-room BTO renovation</em></h2>
+    <p>Market average in 2026: $60,000–$75,000 (Moneysmart.sg)</p>
+  </div>
+
+  <!-- PRICE BOX -->
+  <div class="price-box">
+    <div>
+      <div class="price-label">Woodates all-in 5-Room Package</div>
+      <div class="price-num">$35,888</div>
+    </div>
+    <div class="price-sub">
+      <div class="price-save">~$25,000 less than market average</div>
+    </div>
+  </div>
+
+  <!-- YOUR HOME YOUR WAY CTA -->
+  <div class="cta-box">
+    <div class="chip">CHOPE YOUR FREEBIE</div>
+    <h2 class="cta-title">Hop on a call, secure your <em>sure-win lucky spin</em></h2>
+    <div class="freebie-list">
+      <div class="freebie-list-header">✦ &nbsp; Spin to win one of these &nbsp; ✦</div>
+      <div class="freebie-list-item"><span class="freebie-num">1</span>Suspended TV console (5ft)</div>
+      <div class="freebie-list-item"><span class="freebie-num">2</span>Bedroom wardrobe (5ft)</div>
+      <div class="freebie-list-item"><span class="freebie-num">3</span>Bedside table</div>
+      <div class="freebie-list-item"><span class="freebie-num">4</span>Blum kitchen hinges</div>
+      <div class="freebie-list-item"><span class="freebie-num">5</span>DB box shoe cabinet</div>
+      <div class="freebie-list-item"><span class="freebie-num">6</span>5× Rounded corners</div>
+    </div>
+    <a class="cta-btn" href="https://wa.me/message/BKNNSDC54PN6L1" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp Us
+    </a>
+  </div>
+
+  <!-- PORTFOLIO -->
+  <div class="port-header">
+    <div class="chip">Completed Projects</div>
+    <h2>See the base package <em>plus what each client added</em></h2>
+  </div>
+
+  <div class="port-carousel">
+    <button class="port-arrow port-arrow-prev" id="portPrev" aria-label="View previous projects">‹</button>
+    <div class="port-scroll-wrap" id="portScroll">
+  <div class="port-list">
+
+    <div class="port-card">
+      <div class="port-top">
+        <div>
+          <p class="port-location">373A Woodlands</p>
+          <p class="port-name">Minimalist</p>
+        </div>
+        <div class="port-price-box">
+          <p class="port-price-label">Final Price</p>
+          <p class="port-price">$38,000+</p>
+        </div>
+      </div>
+      <div class="port-pills">
+        <span class="port-pill">Minimalist</span>
+        <span class="port-pill">5-Room BTO</span>
+      </div>
+      <div class="port-imgs layout-4">
+        <img src="/5-room-BTO-package-images/373A-Woodlands-minimalist/373A-Woodlands-minimalist-1.png" alt="373A Woodlands Minimalist 1" loading="lazy">
+        <img src="/5-room-BTO-package-images/373A-Woodlands-minimalist/373A-Woodlands-minimalist-2.png" alt="373A Woodlands Minimalist 2" loading="lazy">
+        <img src="/5-room-BTO-package-images/373A-Woodlands-minimalist/373A-Woodlands-minimalist-3.png" alt="373A Woodlands Minimalist 3" loading="lazy">
+        <img src="/5-room-BTO-package-images/373A-Woodlands-minimalist/373A-Woodlands-minimalist-4.png" alt="373A Woodlands Minimalist 4" loading="lazy">
+      </div>
+      <div class="port-breakdown">
+        <div class="breakdown-col"><span class="breakdown-label">Base Package</span><span class="breakdown-val">$35,888 Signature</span></div>
+        <div class="breakdown-col"><span class="breakdown-label">Style</span><span class="breakdown-val">Clean lines, neutral palette, clutter-free living</span></div>
+      </div>
+    </div>
+
+    <div class="port-card">
+      <div class="port-top">
+        <div>
+          <p class="port-location">588A Costa Grove</p>
+          <p class="port-name">Warm Minimalist</p>
+        </div>
+        <div class="port-price-box">
+          <p class="port-price-label">Final Price</p>
+          <p class="port-price">$40,000</p>
+        </div>
+      </div>
+      <div class="port-pills">
+        <span class="port-pill">Warm Minimalist</span>
+        <span class="port-pill">5-Room BTO</span>
+      </div>
+      <div class="port-imgs layout-4">
+        <img src="/5-room-BTO-package-images/588A-Costa-Grove-warm-minimalist/588A-Costa-Grove-warm-minimalist-1.png" alt="588A Costa Grove Warm Minimalist 1" loading="lazy">
+        <img src="/5-room-BTO-package-images/588A-Costa-Grove-warm-minimalist/588A-Costa-Grove-warm-minimalist-2.png" alt="588A Costa Grove Warm Minimalist 2" loading="lazy">
+        <img src="/5-room-BTO-package-images/588A-Costa-Grove-warm-minimalist/588A-Costa-Grove-warm-minimalist-3.png" alt="588A Costa Grove Warm Minimalist 3" loading="lazy">
+        <img src="/5-room-BTO-package-images/588A-Costa-Grove-warm-minimalist/588A-Costa-Grove-warm-minimalist-4.png" alt="588A Costa Grove Warm Minimalist 4" loading="lazy">
+      </div>
+      <div class="port-breakdown">
+        <div class="breakdown-col"><span class="breakdown-label">Base Package</span><span class="breakdown-val">$35,888 Signature</span></div>
+        <div class="breakdown-col"><span class="breakdown-label">Style</span><span class="breakdown-val">Warm tones, timber accents, inviting atmosphere</span></div>
+      </div>
+    </div>
+
+    <div class="port-card">
+      <div class="port-top">
+        <div>
+          <p class="port-location">589C Pasir Ris Drive</p>
+          <p class="port-name">Cozy Modern</p>
+        </div>
+        <div class="port-price-box">
+          <p class="port-price-label">Final Price</p>
+          <p class="port-price">$42,000+</p>
+        </div>
+      </div>
+      <div class="port-pills">
+        <span class="port-pill">Cozy Modern</span>
+        <span class="port-pill">5-Room BTO</span>
+      </div>
+      <div class="port-imgs layout-4">
+        <img src="/5-room-BTO-package-images/589C-Pasir-Ris-Drive-cozy-modern/589C-Pasir-Ris-Drive-cozy-modern-1.png" alt="589C Pasir Ris Drive Cozy Modern 1" loading="lazy">
+        <img src="/5-room-BTO-package-images/589C-Pasir-Ris-Drive-cozy-modern/589C-Pasir-Ris-Drive-cozy-modern-2.png" alt="589C Pasir Ris Drive Cozy Modern 2" loading="lazy">
+        <img src="/5-room-BTO-package-images/589C-Pasir-Ris-Drive-cozy-modern/589C-Pasir-Ris-Drive-cozy-modern-3.png" alt="589C Pasir Ris Drive Cozy Modern 3" loading="lazy">
+        <img src="/5-room-BTO-package-images/589C-Pasir-Ris-Drive-cozy-modern/589C-Pasir-Ris-Drive-cozy-modern-4.png" alt="589C Pasir Ris Drive Cozy Modern 4" loading="lazy">
+      </div>
+      <div class="port-breakdown">
+        <div class="breakdown-col"><span class="breakdown-label">Base Package</span><span class="breakdown-val">$35,888 Signature</span></div>
+        <div class="breakdown-col"><span class="breakdown-label">Style</span><span class="breakdown-val">Layered textures, soft lighting, homey character</span></div>
+      </div>
+    </div>
+
+  </div><!-- end port-list -->
+  </div><!-- end port-scroll-wrap -->
+    <button class="port-arrow port-arrow-next" id="portNext" aria-label="View next projects">›</button>
+  </div><!-- end port-carousel -->
+
+  <div class="port-dots" id="portDots">
+    <div class="port-dot active"></div>
+    <div class="port-dot"></div>
+    <div class="port-dot"></div>
+  </div>
+  <div class="why-header">
+    <div class="chip">Why Choose Woodates</div>
+  </div>
+
+  <div class="diff-grid">
+    <div class="diff-card">
+      <div class="diff-num">01</div>
+      <h3>Factory Direct</h3>
+      <p>We own our carpentry factory in JB. Every cabinet is hand-finished by our own craftsmen, workmanship guaranteed.</p>
+    </div>
+    <div class="diff-card">
+      <div class="diff-num">02</div>
+      <h3>In-House Team</h3>
+      <p>We employ our own Designers, Project Managers, Carpenters, Painters and Electricians. Total quality control and faster timelines.</p>
+    </div>
+    <div class="diff-card">
+      <div class="diff-num">03</div>
+      <h3>No Hidden Charges</h3>
+      <p>No surprise variation orders. You only pay for whats agreed in the quote.</p>
+    </div>
+  </div>
+
+  <div class="why-grid">
+    <div class="why-item"><span class="why-icon">⭐</span><div><strong>5.0 / 5.0</strong> on Google Reviews</div></div>
+    <div class="why-item"><span class="why-icon">🏠</span><div><strong>HDB Licensed since 2018</strong> — 7+ years building trust. License no:HB-01-5551C </div></div>
+    <div class="why-item"><span class="why-icon">✅</span><div><strong>300+ Renovations</strong> completed</div></div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-header">
+    <div class="chip">FAQ</div>
+    <h2>Questions we answer <em>on every first call</em></h2>
+  </div>
+
+  <div class="faq-list">
+
+    <div class="faq-item open">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Does the $35,888 include everything, or are there add-ons I'll have to pay for?</span>
+        <span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a">
+        <p style="font-size:13px; color:#5a5a52; line-height:1.6; margin: 0 0 12px;">The package includes everything you need for a fully renovated home with plenty of storage and easy-to-clean surfaces:</p>
+        <ul>
+          <li>3D Design (up to 3 revisions)</li>
+          <li>Personal Project Manager</li>
+          <li>All carpentry uses premium ultra low-formaldehyde E0 plywood.<br>30ft Top and Bottom Kitchen Cabinets.<br>Kitchen Oven Cabinet.<br>Fridge Top Cabinet.<br>Full Height 3300mm Master Bedroom Wardrobe.<br>2x Full Height 1800mm Common Bedroom Wardrobes.
+          <li>15ft Sintered Stone Countertop</li>
+          <li>Choose between Tiles or LVT Vinyl Flooring</li>
+          <li>Cement Screeding</li>
+          <li>2x Tempered Glass Fixed Shower Panel for both bathrooms</li>
+          <li>Painting for the entire house (Nippon, up to 3 colours)</li>
+          <li>Includes standard Plumbing and Electrical Works</li>
+        </ul>
+        <p class="faq-note">Customizations like feature walls, false ceilings, kitchen partitions, or additional carpentry are quoted separately and agreed before we start.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Can I visit a completed project before I sign?</span>
+        <span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a">Yes — and we actively encourage it. Seeing a finished home in person is the best way to understand the quality of our carpentry, how accurate our renders are, and what your home will actually feel like to live in. WhatsApp us and we'll arrange a site visit to a recently completed project that matches your preferred style. Clients who visit a site before signing consistently feel most confident about their decision.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">When should I contact you relative to my key collection date?</span>
+        <span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a">As early as possible. A standard 5-room BTO renovation takes 10–14 weeks. We recommend reaching out as soon as you have a confirmed key collection date — or even before. The earlier we begin design, the better your chances of securing a renovation slot that aligns with your move-in target.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">How does payment work — do I need to pay a lot upfront?</span>
+        <span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a">Payment is split into 5 milestones tied to completed work stages: 15% at signing, 35% upon commencement of work, 20% upon completion of tiling or flooring works, 25% upon delivery of carpentry work, 5% upon completion of work. You never pay for the next stage until the current one is verified.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text">Do you do 3-room, 4-room, resale, condo or landed as well?</span>
+        <span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a">Our Signature Package is designed for 5-room BTOs. We also take on 3-room BTO, 4-room BTO, resale HDB, condo, and landed projects — these are quoted individually based on the scope. WhatsApp us with your property type, floor plan and key collection date and we'll work on the quote for you.</div>
+    </div>
+
+  </div>
+
+  <div class="address-box">
+    <p class="address-title">Woodates Carpentry Showroom</p>
+    <p>JB Factory — 85 Jalan Silc 2/1, Kawasan Perindustrian Silc, 79100 Johor Malaysia</p>
+    <p style="margin-top:6px; color:#8a8078;">Singapore: By appointment only — WhatsApp us to arrange</p>
+  </div>
+
+</div>
+
+<div class="img-lightbox" id="img-lightbox" role="dialog" aria-modal="true" aria-label="Expanded portfolio image">
+  <button class="img-lightbox-close" id="img-lightbox-close" aria-label="Close image">×</button>
+  <img id="img-lightbox-image" src="" alt="Expanded portfolio image">
+</div>
+
+<script>
+  function toggle(questionEl) {
+    var item = questionEl.closest('.faq-item');
+    var isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(el) { el.classList.remove('open'); });
+    if (!isOpen) item.classList.add('open');
+  }
+
+  (function initPortfolioLightbox() {
+    var lightbox = document.getElementById('img-lightbox');
+    var lightboxImage = document.getElementById('img-lightbox-image');
+    var closeBtn = document.getElementById('img-lightbox-close');
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightboxImage.src = '';
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.port-imgs img').forEach(function(img) {
+      img.addEventListener('click', function() {
+        lightboxImage.src = img.src;
+        lightboxImage.alt = img.alt || 'Expanded portfolio image';
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    closeBtn.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', function(event) {
+      if (event.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') closeLightbox();
+    });
+  })();
+
+  // Portfolio scroll dots + desktop arrows
+  (function initPortCarousel() {
+    var wrap = document.getElementById('portScroll');
+    var dots = document.querySelectorAll('#portDots .port-dot');
+    var prev = document.getElementById('portPrev');
+    var next = document.getElementById('portNext');
+    if (!wrap) return;
+
+    var cards = wrap.querySelectorAll('.port-card');
+    if (!cards.length) return;
+
+    function cardStep() {
+      return cards[0].offsetWidth + 16;
+    }
+
+    function maxIndex() {
+      return Math.max(0, cards.length - 1);
+    }
+
+    function activeIndex() {
+      return Math.max(0, Math.min(maxIndex(), Math.round(wrap.scrollLeft / cardStep())));
+    }
+
+    function updateUI() {
+      var idx = activeIndex();
+      dots.forEach(function(dot, i) {
+        dot.classList.toggle('active', i === idx);
+      });
+      if (prev && next) {
+        prev.disabled = idx <= 0;
+        next.disabled = idx >= maxIndex();
+      }
+    }
+
+    function scrollToIndex(idx) {
+      wrap.scrollTo({ left: idx * cardStep(), behavior: 'smooth' });
+    }
+
+    if (prev && next) {
+      prev.addEventListener('click', function() {
+        scrollToIndex(activeIndex() - 1);
+      });
+      next.addEventListener('click', function() {
+        scrollToIndex(activeIndex() + 1);
+      });
+    }
+
+    wrap.addEventListener('scroll', updateUI, { passive: true });
+    window.addEventListener('resize', updateUI);
+    updateUI();
+  })();
+</script>
+</body>
+</html>
