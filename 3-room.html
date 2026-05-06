@@ -420,6 +420,73 @@
     .port-imgs.layout-4 img { height: 200px; }
   }
 
+  /* ── REVIEWS ── */
+  .rev-header { text-align: center; }
+  .rev-header h2 {
+    font-family: 'DM Serif Display', serif; font-size: 26px;
+    font-weight: 400; color: #1a1a18; line-height: 1.25; margin: 0 0 6px;
+  }
+  .rev-header h2 em { font-style: italic; color: #c8a96e; }
+  .rev-header p { font-size: 13px; color: #6b6b62; margin: 0; }
+
+  .rev-carousel { position: relative; }
+  .rev-scroll-wrap {
+    overflow-x: auto; overflow-y: visible;
+    scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; -ms-overflow-style: none;
+    padding-bottom: 4px;
+  }
+  .rev-scroll-wrap::-webkit-scrollbar { display: none; }
+  .rev-list { display: flex; gap: 14px; width: max-content; }
+  .rev-card {
+    width: 290px; flex-shrink: 0;
+    background: #fff; border: 1px solid #e8e5de; border-radius: 12px;
+    padding: 22px 20px; scroll-snap-align: start;
+    display: flex; flex-direction: column; gap: 10px;
+    position: relative; overflow: hidden;
+  }
+  .rev-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, #c8a96e, #e8cc9a);
+  }
+  .rev-meta { display: flex; align-items: center; gap: 10px; }
+  .rev-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #1a1a18; color: #c8a96e;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif; font-size: 15px; font-weight: 400;
+    flex-shrink: 0;
+  }
+  .rev-info { display: flex; flex-direction: column; gap: 1px; }
+  .rev-name { font-size: 13px; font-weight: 600; color: #1a1a18; line-height: 1.2; }
+  .rev-date { font-size: 11px; color: #9a9489; }
+  .rev-stars { color: #f4b400; font-size: 14px; letter-spacing: 1px; }
+  .rev-text {
+    font-size: 13px; color: #4a4a42; line-height: 1.65;
+    display: -webkit-box; -webkit-line-clamp: 7; -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .rev-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: #1a1a18; color: #c8a96e; border: none; border-radius: 50%;
+    width: 34px; height: 34px; font-size: 18px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 10; transition: opacity .2s; line-height: 1;
+  }
+  .rev-arrow:disabled { opacity: .25; cursor: default; }
+  .rev-arrow-prev { left: -14px; }
+  .rev-arrow-next { right: -14px; }
+  .rev-dots { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
+  .rev-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #d9d5ce; border: none; padding: 0; cursor: pointer; transition: background .2s;
+  }
+  .rev-dot.active { background: #c8a96e; }
+  @media (max-width: 480px) {
+    .rev-card { width: 270px; }
+    .rev-arrow { display: none; }
+  }
+
 </style>
 </head>
 <body>
@@ -601,6 +668,129 @@
 
   </div>
 
+  <!-- GOOGLE REVIEWS -->
+  <div class="rev-header">
+    <div class="chip">Google Reviews</div>
+    <h2>What our clients say <em>about us</em></h2>
+    <p>⭐⭐⭐⭐⭐ &nbsp;5.0 &nbsp;·&nbsp; <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" style="width:16px;height:16px;vertical-align:middle;margin-right:2px;position:relative;top:-1px"><path fill="#4285F4" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"/><path fill="#34A853" d="M6.3 14.7l7 5.1C15.1 16 19.2 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 16.3 2 9.6 7.4 6.3 14.7z"/><path fill="#FBBC05" d="M24 46c5.9 0 10.9-2 14.5-5.3l-6.7-5.5C29.9 36.8 27.1 38 24 38c-6 0-11.1-4-12.9-9.6l-7.1 5.5C7.5 41.8 15.2 46 24 46z"/><path fill="#EA4335" d="M44.5 20H24v8.5h11.8c-.9 2.6-2.7 4.7-5 6.2l6.7 5.5C41.5 37.4 45 31.3 45 24c0-1.3-.2-2.7-.5-4z"/></svg> Google Reviews</p>
+  </div>
+
+  <div class="rev-carousel">
+    <button class="rev-arrow rev-arrow-prev" id="revPrev" aria-label="Previous review">‹</button>
+    <div class="rev-scroll-wrap" id="revScroll">
+      <div class="rev-list">
+
+        <div class="rev-card">
+          <div class="rev-meta">
+            <div class="rev-avatar">H</div>
+            <div class="rev-info">
+              <span class="rev-name">Huey Jy Chong</span>
+              <span class="rev-date">3 months ago · Local Guide</span>
+            </div>
+          </div>
+          <div class="rev-stars">★★★★★</div>
+          <p class="rev-text">Engaged them as both our interior designer and main contractor, and it was one of the best decisions we made. Design was practical and well thought out, and execution was equally reliable. They coordinated everything smoothly, kept us updated regularly, and were responsive whenever we had questions. Workmanship was good and the handover was smooth. Very dependable team with good attitude and service. Thank you for making our renovation stress-free.</p>
+        </div>
+
+        <div class="rev-card">
+          <div class="rev-meta">
+            <div class="rev-avatar">J</div>
+            <div class="rev-info">
+              <span class="rev-name">Joel Mok</span>
+              <span class="rev-date">4 months ago · Local Guide</span>
+            </div>
+          </div>
+          <div class="rev-stars">★★★★★</div>
+          <p class="rev-text">Woodates carpentry made our dream home come true. Having Queenie showed us their workmanship enabled us to make an assured decision to proceed on our renovation journey. Shoutout to Daniel who coordinated with us from start to end and walked our reno journey together to make our dream home come through! He was prompt with his replies and was opened to ideas during multiple discussions. During site visits, their staff (plumber, electrician, carpenters and painters) were all such nice and knowledgeable workers. Overall a pleasant and satisfactory experience.</p>
+        </div>
+
+        <div class="rev-card">
+          <div class="rev-meta">
+            <div class="rev-avatar">P</div>
+            <div class="rev-info">
+              <span class="rev-name">prislyn</span>
+              <span class="rev-date">4 months ago</span>
+            </div>
+          </div>
+          <div class="rev-stars">★★★★★</div>
+          <p class="rev-text">We engaged Woodates Carpentry for a full house renovation and couldn't be happier with the results. They handled everything from the kitchen and toilets to all three bedrooms, and the workmanship was excellent throughout. The team was professional, responsive, and paid great attention to detail. The final outcome was beautiful, functional, and exactly what we hoped for. We highly recommend Woodates Carpentry to anyone whose looking for a reliable renovation company.</p>
+        </div>
+
+        <div class="rev-card">
+          <div class="rev-meta">
+            <div class="rev-avatar">A</div>
+            <div class="rev-info">
+              <span class="rev-name">Alson Lai</span>
+              <span class="rev-date">6 months ago</span>
+            </div>
+          </div>
+          <div class="rev-stars">★★★★★</div>
+          <p class="rev-text">We recently engaged Woodates for a comprehensive apartment renovation, and we are incredibly impressed with the outcome. The quality of craftsmanship displayed by the Woodates team was top-notch. Communication was a highlight — our project manager was Queenie, ensuring we were updated on the schedule and progress almost daily. Any unexpected issues were addressed quickly and with practical solutions. The project was delivered with minor, justifiable adjustments to the timeline and cost. A special shout-out to Mr. Cheong who delivered utmost integrity in his services and work. We are absolutely excited with our transformed apartment and highly recommend Woodates.</p>
+        </div>
+
+        <div class="rev-card">
+          <div class="rev-meta">
+            <div class="rev-avatar">F</div>
+            <div class="rev-info">
+              <span class="rev-name">Firuz Ali</span>
+              <span class="rev-date">6 months ago</span>
+            </div>
+          </div>
+          <div class="rev-stars">★★★★★</div>
+          <p class="rev-text">We chose Woodates for my renovation over 4 other different IDs. Glad we made the right decision as our home was renovated to what we have envisioned. Queenie and her team has delivered what was expected. She is always open for discussion and sharing her inputs to help whenever we have any issues or doubts. Her team of workers are professional and tries their best at what they do. The renovation was completed within the time frame agreed upon in the contract, which was much appreciated. I would definitely recommend Queenie and team for any renovation work!</p>
+        </div>
+
+        <div class="rev-card">
+          <div class="rev-meta">
+            <div class="rev-avatar">R</div>
+            <div class="rev-info">
+              <span class="rev-name">Rose Lily</span>
+              <span class="rev-date">10 months ago</span>
+            </div>
+          </div>
+          <div class="rev-stars">★★★★★</div>
+          <p class="rev-text">Thank you, Woodates Carpentry, for designing and building my home. I truly appreciate the patience, dedication, and craftsmanship your team brought to the project. Every detail was handled with care, and the work was done beautifully. You were incredibly helpful, friendly, and professional throughout the entire process.</p>
+        </div>
+
+        <div class="rev-card">
+          <div class="rev-meta">
+            <div class="rev-avatar">T</div>
+            <div class="rev-info">
+              <span class="rev-name">Tan Reichmann</span>
+              <span class="rev-date">11 months ago</span>
+            </div>
+          </div>
+          <div class="rev-stars">★★★★★</div>
+          <p class="rev-text">I recently completed my home renovation with Woodates Carpentry and honestly, I couldn't be happier with how everything turned out. From the start, working with Queenie, the project manager, was a breeze. Communication was always clear — I never felt like I was left in the dark, which made a huge difference. What I really appreciated was how Queenie gave thoughtful advice whenever issues cropped up. The whole process felt smooth, and most importantly — everything was done on time. No nightmare moments, no messy miscommunications, just a solid team doing good work.</p>
+        </div>
+
+        <div class="rev-card">
+          <div class="rev-meta">
+            <div class="rev-avatar">M</div>
+            <div class="rev-info">
+              <span class="rev-name">Mannie Tang</span>
+              <span class="rev-date">1 year ago</span>
+            </div>
+          </div>
+          <div class="rev-stars">★★★★★</div>
+          <p class="rev-text">I am absolutely thrilled with the outstanding work done by Woodates Design &amp; Build on the complete renovation of my home. From start to finish, their professionalism, attention to detail, and commitment to quality were truly impressive. The team went above and beyond to bring our vision to life, ensuring every aspect of the project was executed flawlessly. They were punctual, transparent with updates, and handled challenges with expertise. What stands out the most is their dedication to craftsmanship — no corner was cut, and the final result exceeds our expectations. We are deeply grateful for your exceptional work!</p>
+        </div>
+
+      </div>
+    </div>
+    <button class="rev-arrow rev-arrow-next" id="revNext" aria-label="Next review">›</button>
+    <div class="rev-dots" id="revDots">
+      <button class="rev-dot active" aria-label="Review 1"></button>
+      <button class="rev-dot" aria-label="Review 2"></button>
+      <button class="rev-dot" aria-label="Review 3"></button>
+      <button class="rev-dot" aria-label="Review 4"></button>
+      <button class="rev-dot" aria-label="Review 5"></button>
+      <button class="rev-dot" aria-label="Review 6"></button>
+      <button class="rev-dot" aria-label="Review 7"></button>
+      <button class="rev-dot" aria-label="Review 8"></button>
+    </div>
+  </div>
+
   <div class="why-header">
     <div class="chip">Why Choose Woodates</div>
   </div>
@@ -728,6 +918,37 @@
         scrollToIndex(activeIndex() + 1);
       });
     }
+
+    wrap.addEventListener('scroll', updateUI, { passive: true });
+    window.addEventListener('resize', updateUI);
+    updateUI();
+  })();
+
+  // Reviews carousel
+  (function initRevCarousel() {
+    var wrap = document.getElementById('revScroll');
+    var dots = document.querySelectorAll('#revDots .rev-dot');
+    var prev = document.getElementById('revPrev');
+    var next = document.getElementById('revNext');
+    if (!wrap) return;
+    var cards = wrap.querySelectorAll('.rev-card');
+    if (!cards.length) return;
+
+    function cardStep() { return cards[0].offsetWidth + 14; }
+    function maxIdx() { return Math.max(0, cards.length - 1); }
+    function activeIdx() { return Math.max(0, Math.min(maxIdx(), Math.round(wrap.scrollLeft / cardStep()))); }
+
+    function updateUI() {
+      var idx = activeIdx();
+      dots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
+      if (prev && next) { prev.disabled = idx <= 0; next.disabled = idx >= maxIdx(); }
+    }
+
+    function scrollTo(idx) { wrap.scrollTo({ left: idx * cardStep(), behavior: 'smooth' }); }
+
+    if (prev) prev.addEventListener('click', function() { scrollTo(activeIdx() - 1); });
+    if (next) next.addEventListener('click', function() { scrollTo(activeIdx() + 1); });
+    dots.forEach(function(d, i) { d.addEventListener('click', function() { scrollTo(i); }); });
 
     wrap.addEventListener('scroll', updateUI, { passive: true });
     window.addEventListener('resize', updateUI);
