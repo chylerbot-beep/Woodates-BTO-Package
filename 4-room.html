@@ -470,9 +470,19 @@
   .rev-stars { color: #f4b400; font-size: 14px; letter-spacing: 1px; }
   .rev-text {
     font-size: 13px; color: #4a4a42; line-height: 1.65;
-    display: -webkit-box; -webkit-line-clamp: 7; -webkit-box-orient: vertical;
-    overflow: hidden;
+    display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical;
+    overflow: hidden; transition: all .3s ease;
   }
+  .rev-text.expanded {
+    display: block; -webkit-line-clamp: unset; overflow: visible;
+  }
+  .rev-toggle {
+    background: none; border: none; padding: 0; margin-top: 2px;
+    font-size: 12px; font-weight: 600; color: #c8a96e;
+    cursor: pointer; letter-spacing: .3px; text-align: left;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .rev-toggle:hover { color: #a8894e; }
   .rev-arrow {
     position: absolute; top: 50%; transform: translateY(-50%);
     background: #1a1a18; color: #c8a96e; border: none; border-radius: 50%;
@@ -737,6 +747,7 @@
           </div>
           <div class="rev-stars">★★★★★</div>
           <p class="rev-text">Engaged them as both our interior designer and main contractor, and it was one of the best decisions we made. Design was practical and well thought out, and execution was equally reliable. They coordinated everything smoothly, kept us updated regularly, and were responsive whenever we had questions. Workmanship was good and the handover was smooth. Very dependable team with good attitude and service. Thank you for making our renovation stress-free.</p>
+          <button class="rev-toggle" onclick="toggleRev(this)">Read more ↓</button>
         </div>
 
         <div class="rev-card">
@@ -749,6 +760,7 @@
           </div>
           <div class="rev-stars">★★★★★</div>
           <p class="rev-text">Woodates carpentry made our dream home come true. Having Queenie showed us their workmanship enabled us to make an assured decision to proceed on our renovation journey. Shoutout to Daniel who coordinated with us from start to end and walked our reno journey together to make our dream home come through! He was prompt with his replies and was opened to ideas during multiple discussions. During site visits, their staff (plumber, electrician, carpenters and painters) were all such nice and knowledgeable workers. Overall a pleasant and satisfactory experience.</p>
+          <button class="rev-toggle" onclick="toggleRev(this)">Read more ↓</button>
         </div>
 
         <div class="rev-card">
@@ -761,6 +773,7 @@
           </div>
           <div class="rev-stars">★★★★★</div>
           <p class="rev-text">We engaged Woodates Carpentry for a full house renovation and couldn't be happier with the results. They handled everything from the kitchen and toilets to all three bedrooms, and the workmanship was excellent throughout. The team was professional, responsive, and paid great attention to detail. The final outcome was beautiful, functional, and exactly what we hoped for. We highly recommend Woodates Carpentry to anyone whose looking for a reliable renovation company.</p>
+          <button class="rev-toggle" onclick="toggleRev(this)">Read more ↓</button>
         </div>
 
         <div class="rev-card">
@@ -773,6 +786,7 @@
           </div>
           <div class="rev-stars">★★★★★</div>
           <p class="rev-text">We recently engaged Woodates for a comprehensive apartment renovation, and we are incredibly impressed with the outcome. The quality of craftsmanship displayed by the Woodates team was top-notch. Communication was a highlight — our project manager was Queenie, ensuring we were updated on the schedule and progress almost daily. Any unexpected issues were addressed quickly and with practical solutions. The project was delivered with minor, justifiable adjustments to the timeline and cost. A special shout-out to Mr. Cheong who delivered utmost integrity in his services and work. We are absolutely excited with our transformed apartment and highly recommend Woodates.</p>
+          <button class="rev-toggle" onclick="toggleRev(this)">Read more ↓</button>
         </div>
 
         <div class="rev-card">
@@ -785,6 +799,7 @@
           </div>
           <div class="rev-stars">★★★★★</div>
           <p class="rev-text">We chose Woodates for my renovation over 4 other different IDs. Glad we made the right decision as our home was renovated to what we have envisioned. Queenie and her team has delivered what was expected. She is always open for discussion and sharing her inputs to help whenever we have any issues or doubts. Her team of workers are professional and tries their best at what they do. The renovation was completed within the time frame agreed upon in the contract, which was much appreciated. I would definitely recommend Queenie and team for any renovation work!</p>
+          <button class="rev-toggle" onclick="toggleRev(this)">Read more ↓</button>
         </div>
 
         <div class="rev-card">
@@ -797,6 +812,7 @@
           </div>
           <div class="rev-stars">★★★★★</div>
           <p class="rev-text">Thank you, Woodates Carpentry, for designing and building my home. I truly appreciate the patience, dedication, and craftsmanship your team brought to the project. Every detail was handled with care, and the work was done beautifully. You were incredibly helpful, friendly, and professional throughout the entire process.</p>
+          <button class="rev-toggle" onclick="toggleRev(this)">Read more ↓</button>
         </div>
 
         <div class="rev-card">
@@ -809,6 +825,7 @@
           </div>
           <div class="rev-stars">★★★★★</div>
           <p class="rev-text">I recently completed my home renovation with Woodates Carpentry and honestly, I couldn't be happier with how everything turned out. From the start, working with Queenie, the project manager, was a breeze. Communication was always clear — I never felt like I was left in the dark, which made a huge difference. What I really appreciated was how Queenie gave thoughtful advice whenever issues cropped up. The whole process felt smooth, and most importantly — everything was done on time. No nightmare moments, no messy miscommunications, just a solid team doing good work.</p>
+          <button class="rev-toggle" onclick="toggleRev(this)">Read more ↓</button>
         </div>
 
         <div class="rev-card">
@@ -821,6 +838,7 @@
           </div>
           <div class="rev-stars">★★★★★</div>
           <p class="rev-text">I am absolutely thrilled with the outstanding work done by Woodates Design &amp; Build on the complete renovation of my home. From start to finish, their professionalism, attention to detail, and commitment to quality were truly impressive. The team went above and beyond to bring our vision to life, ensuring every aspect of the project was executed flawlessly. They were punctual, transparent with updates, and handled challenges with expertise. What stands out the most is their dedication to craftsmanship — no corner was cut, and the final result exceeds our expectations. We are deeply grateful for your exceptional work!</p>
+          <button class="rev-toggle" onclick="toggleRev(this)">Read more ↓</button>
         </div>
 
       </div>
@@ -970,6 +988,12 @@
     window.addEventListener('resize', updateUI);
     updateUI();
   })();
+
+  function toggleRev(btn) {
+    var p = btn.previousElementSibling;
+    var expanded = p.classList.toggle('expanded');
+    btn.textContent = expanded ? 'Read less ↑' : 'Read more ↓';
+  }
 
   // Reviews carousel
   (function initRevCarousel() {
